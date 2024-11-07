@@ -1,0 +1,6 @@
+We have done examining the dataset and get some intereting findings from the exploratory analysis. 
+Now we are ready to train and create our first predictive model. Machine Learning is an iterative process where we preprocess the training data, then train and evaluate the model and repeat the steps again iteratively to get better performace model based on our evaluation metrics.
+The shiny app we’ll going to built based on our trained predictive model later on will have similar functionality as the SwiftKey app.
+It will have text fielf for user to input thir text and it will pop up 3-5 options of sugestions what the next word might be which user can choose and it will be appended automatically to what they already type (save alot of time typing!).
+Before we end this report, It is important to note that each of the steps (data cleaning, preprocessing, model training and evaluation) are important and each steps need to be re-evaluated continuosly to get really working and accurate ML model for our predictive text app.
+We are looking forward on the next report on the predictive model and shiny app we’ll going to build!
