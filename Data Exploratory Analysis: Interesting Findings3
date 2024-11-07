@@ -1,0 +1,13 @@
+#For the bigram, we also still observe that the most common words is also about timing, such as ‘last year’, ‘right now’ and also about places , such as ‘new york’, ‘high school’. Also if we notice that there are several bigram start with ‘last’ in differant ranking. Hence, when we design the text prediction, we can set a range e.g. 10-20 most common words and rank them which will result the suggestion options listed in this order ‘last year’, ‘last night’, ‘last week’. Let’s continue with the trigram.
+
+# Create the dtm from the corpus: 
+corpus_dtm_trigram <- TermDocumentMatrix(corpus, control = list(tokenize = trigram))
+# Print out corpus_dtm_bigram data
+corpus_dtm_trigram
+## <<TermDocumentMatrix (terms: 301082, documents: 33365)>>
+## Non-/sparse entries: 302841/10045298089
+## Sparsity           : 100%
+## Maximal term length: 108
+## Weighting          : term frequency (tf)
+freq3 <- getFreq(removeSparseTerms(corpus_dtm_trigram, 0.9999))
+makeHistogramPlot(freq3, "10 Most Common Trigrams", "blue")
