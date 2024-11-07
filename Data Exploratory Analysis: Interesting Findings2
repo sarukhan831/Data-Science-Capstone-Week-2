@@ -1,0 +1,13 @@
+#Let’s now look at the bigram (pair of words that appear together).
+
+# Create the dtm from the corpus: 
+corpus_dtm_bigram <- TermDocumentMatrix(corpus, control = list(tokenize = bigram))
+# Print out corpus_dtm_bigram data
+corpus_dtm_bigram
+## <<TermDocumentMatrix (terms: 289683, documents: 33365)>>
+## Non-/sparse entries: 332983/9664940312
+## Sparsity           : 100%
+## Maximal term length: 101
+## Weighting          : term frequency (tf)
+freq2 <- getFreq(removeSparseTerms(corpus_dtm_bigram, 0.9999))
+makeHistogramPlot(freq2, "10 Most Common Bigrams","green")
