@@ -1,0 +1,35 @@
+#The dataset should be placed in the correct directory as we set by now. It contains dataset with 4 different languages: German, English, Finnish and Russian. 
+#Each language dataset contains dataset from 3 different sources: Blogs, News and Twitters. While we may use all the different languages corpora, for now let’s explore just the English dataset.
+
+# Read the blogs and Twitter data from English dataset into R
+blogs <- readLines("final/en_US/en_US.blogs.txt", encoding = "UTF-8", skipNul = TRUE)
+news <- readLines("final/en_US/en_US.news.txt", encoding = "UTF-8", skipNul = TRUE)
+## Warning in readLines("final/en_US/en_US.news.txt", encoding = "UTF-8", skipNul =
+## TRUE): linha final incompleta encontrada em 'final/en_US/en_US.news.txt'
+twitter <- readLines("final/en_US/en_US.twitter.txt", encoding = "UTF-8", skipNul = TRUE)
+
+# Get file sizes
+blogs.size <- file.info("final/en_US/en_US.blogs.txt")$size / 1024 ^ 2
+news.size <- file.info("final/en_US/en_US.news.txt")$size / 1024 ^ 2
+twitter.size <- file.info("final/en_US/en_US.twitter.txt")$size / 1024 ^ 2
+
+# Get words in files
+blogs.words <- stri_count_words(blogs)
+news.words <- stri_count_words(news)
+twitter.words <- stri_count_words(twitter)
+
+# Summary of the data sets
+data_summary <- data.frame(data_source = c("blogs", "news", "twitter"),
+           file_size_MB = c(blogs.size, news.size, twitter.size),
+           line_counts = c(length(blogs), length(news), length(twitter)),
+           words_counts = c(sum(blogs.words), sum(news.words), sum(twitter.words)),
+           num_of_words_per_line_mean = c(mean(blogs.words), mean(news.words), mean(twitter.words)))
+kable(data_summary, caption = "English Dataset Summary")
+English Dataset Summary
+data_source	file_size_MB	line_counts	words_counts	num_of_words_per_line_mean
+blogs	200.4242	899288	37546239	41.75107
+news	196.2775	77259	2674536	34.61779
+twitter	159.3641	2360148	30093413	12.75065
+
+#We have done the basic exploration of the English dataset. From the table above, we can observe that the dataset statistics from the 3 different sources are more or less of equal size. The dataset from twitter have the least file size (~159 MB) but double the number of lines compared to the other two sources.
+#Also, the ones from twitter have the least number of words and the mean (average of number of word per line). These are expected because twitter data is composed of short text (with defined text limit), and we also expect that there can be more of ‘garbage words’ that we need to clean from the twitter data than blogs and news data.
