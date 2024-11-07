@@ -11,3 +11,33 @@ corpus_dtm_trigram
 ## Weighting          : term frequency (tf)
 freq3 <- getFreq(removeSparseTerms(corpus_dtm_trigram, 0.9999))
 makeHistogramPlot(freq3, "10 Most Common Trigrams", "blue")
+
+#For the trigram, we can see some congratulatory message that is related to occasional events such as ‘’mother’s day’, ‘new year’ which we expect will be a lot in conversational text like tweets. Also we can see expression of time, place and certain subject (e.g. president barrack obama) which usually appears a lot in news or tweets when the subject is an popular topics.
+
+Alternatively, n-gram the statistics also can use term_stats function from the corpus library by specifying number of n-grams to be calculated (below are the results without using sparse and document matrix for trigram).
+
+term_stats(corpus, ngrams = 3, types = TRUE)
+## Warning in term_stats(corpus, ngrams = 3, types = TRUE): renaming entries with
+## duplicate names
+##    term                 type1  type2      type3 count support
+## 1  “ ' s                “      '          s        33      33
+## 2  happy mothers day    happy  mothers    day      31      30
+## 3  let us know          let    us         know     21      21
+## 4  ' m sure             '      m          sure     21      20
+## 5  happy new year       happy  new        year     19      19
+## 6  ' m going            '      m          going    16      16
+## 7  – ' s                –      '          s        16      16
+## 8  think ' s            think  '          s        18      15
+## 9  “ ' m                “      '          m        14      14
+## 10 ' ve never           '      ve         never    13      13
+## 11 ” ' s                ”      '          s        13      13
+## 12 ' s hard             '      s          hard     12      12
+## 13 new york city        new    york       city     12      12
+## 14 ' s still            '      s          still    11      11
+## 15 ' s '                '      s          '        11      10
+## 16 ' s good             '      s          good     11      10
+## 17 ' ve got             '      ve         got      10      10
+## 18 cinco de mayo        cinco  de         mayo     10      10
+## 19 couple weeks ago     couple weeks      ago      10      10
+## 20 happy valentines day happy  valentines day      10      10
+## <U+22EE>(305086 rows total)
