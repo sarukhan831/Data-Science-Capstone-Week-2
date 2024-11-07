@@ -1,0 +1,30 @@
+#The training dataset to get started that will be the basis for most of the capstone. The dataset must be downloaded from the link below and not from external websites to start.
+
+#(https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip)
+
+#Let’s set our working directory, and then specify the url from where the data to be downloaded, download the data and uncompressed it.
+
+# set the working directory
+setwd("/wendt/Desktop")
+
+# load necessary libraries
+library(knitr)
+library(stringi)
+library(tm)
+## Warning: package 'tm' was built under R version 4.0.3
+## Warning: package 'NLP' was built under R version 4.0.3
+library(RWeka)
+## Warning: package 'RWeka' was built under R version 4.0.3
+library("corpus")
+## Warning: package 'corpus' was built under R version 4.0.3
+library(ggplot2)
+
+# download the dataset
+destfile = "./Coursera-SwiftKey.zip"
+if(!file.exists(destfile)){
+  url = "https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip"
+  file <- basename(url)
+  download.file(url, file, method="curl")
+  # uncompressed the dataset
+  unzip(file)
+}
