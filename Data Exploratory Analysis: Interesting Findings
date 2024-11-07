@@ -1,0 +1,32 @@
+#In this steps, we will plot histograms of the most common words remaining in the data after the data cleaning. We will use Rweka library:n-grams functions to create different n-grams from the corpus then construct a term-document matricies for the various n-gram tokens. Then we will use ggplot2 library to plot the histogram of the matricies frequency vs n-gram words.
+#The document-term matrix is used when you want to have each document represented as a row. This can be useful if you are comparing authors within rows, or the data is arranged chronologically and you want to preserve the time series. Also we used remove sparse term with sparsity treshold of 0.9999. Sparsity refers to the threshold of relative document frequency for a term, above which the term will be removed, then with our treshold, it will remove only terms that are more sparse than 0.9999.
+
+options(mc.cores=1)
+
+getFreq <- function(tdm) {
+  freq <- sort(rowSums(as.matrix(tdm)), decreasing = TRUE)
+  return(data.frame(word = names(freq), freq = freq))
+}
+bigram <- function(x) NGramTokenizer(x, Weka_control(min = 2, max = 2))
+trigram <- function(x) NGramTokenizer(x, Weka_control(min = 3, max = 3))
+The plot below shows histograms of the ten most frequent words (unigram, bigram, and trigram) in the corpus. The plots are using distinct RGB color to make it easy to distinguish between n-grams statistics. Let’s start with the unigram first.
+
+# create plot historam function
+makeHistogramPlot <- function(data, label, color) {
+  ggplot(data[1:10,], aes(reorder(word, -freq), freq)) +
+    labs(x = label, y = "Frequency") +
+    theme(axis.text.x = element_text(angle = 60, size = 12, hjust = 1)) +
+    geom_bar(stat = "identity", fill = I(color))
+}
+
+# Create the dtm from the corpus: 
+corpus_dtm <- TermDocumentMatrix(corpus)
+# Print out corpus_dtm data
+corpus_dtm
+## <<TermDocumentMatrix (terms: 45346, documents: 33365)>>
+## Non-/sparse entries: 331805/1512637485
+## Sparsity           : 100%
+## Maximal term length: 85
+## Weighting          : term frequency (tf)
+freq1 <- getFreq(removeSparseTerms(corpus_dtm, 0.9999))
+makeHistogramPlot(freq1, "10 Most Common Unigrams","red")
